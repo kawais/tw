@@ -7,7 +7,9 @@
     "test": "tests"
   },
   "dependencies": {
-    "cucumber": "^0.10.3"
+    "cucumber": "^0.10.3",
+    "rewire": "^2.5.1",
+    "should": "^8.4.0"
   },
   "devDependencies": {
     "mocha": "^2.5.2"
