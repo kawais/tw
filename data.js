@@ -1,4 +1,4 @@
-var order = ['ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000003-2', 'ITEM000005', 'ITEM000005', 'ITEM000005'];
+var order = ['ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000003-2', 'ITEM000005', 'ITEM000005', 'ITEM000005', 'ITEM000006-2'];
 var items = [{
     barcode: 'ITEM000001',
     name: '可口可乐',
@@ -34,6 +34,13 @@ var items = [{
     category: '食品',
     subCategory: '水果',
     price: 7.00
+}, {
+    barcode: 'ITEM000006',
+    name: '篮球',
+    unit: '个',
+    category: '体育用品',
+    subCategory: '球类',
+    price: 98.00
 }];
 
 
@@ -46,6 +53,7 @@ function getItems() {
 }
 
 function getPolicy(){
+//   return [{ type: 'SINGLE_ITEM_BUY_HUNDRED_DISCOUNT_TEN', barcodes: [ 'ITEM000006', 'ITEM000001' ] }];
   return [{ type: 'BUY_THREE_GET_ONE_FREE', barcodes: [ 'ITEM000000', 'ITEM000001' ] }];
 }
 

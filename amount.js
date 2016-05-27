@@ -1,22 +1,10 @@
 var data=require('./data.js');
 var items=data.getItems();
-
+var ITEM=require('./item.js');
 
 function getItemAmount(barcode,num)
 {
-  var item=false;
-  for(var i in items)
-  {
-    if(items[i].barcode===barcode)
-    {
-      item=items[i];
-      break;
-    }
-  }
-  if(!item)
-  {
-    throw new Error('Barcode not found.');
-  }
+  var item=ITEM.getItem(barcode);
   return item.price*num;
 }
 

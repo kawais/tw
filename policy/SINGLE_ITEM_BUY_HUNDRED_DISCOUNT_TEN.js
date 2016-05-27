@@ -1,4 +1,5 @@
-//买三免一商品
+//单品满100减10块商品
+
 
 function POLICY() {
 }
@@ -10,7 +11,7 @@ function POLICY() {
  * @type String
  */
 POLICY.prototype.getPolicyName = function() {
-    var name = '买三免一商品';
+    var name = '单品满100减10块商品';
     return name;
 }
 
