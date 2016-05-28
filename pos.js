@@ -28,9 +28,8 @@ POS.prototype.countOrderItems = function(order) {
 }
 
 
-POS.prototype.printList = function(order, policy) {
-    var POLICY = PF.getPolicy(policy);
-    var policyData = data.getPolicy(policy);
+POS.prototype.printList = function(order, policyData) {
+    var POLICY = PF.getPolicy(policyData[0].type);
     var items = POLICY.checkItems(this.countOrderItems(order), policyData[0].barcodes);
     var result = POLICY.calcAmount(items);
     console.log(POLICY.report(result));
