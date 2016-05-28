@@ -1,5 +1,5 @@
-var policyfactory=require('./policyfactory.js');
-var PF=new policyfactory();
+var policyfactory = require('./policyfactory.js');
+var PF = new policyfactory();
 
 var data = require('./data.js');
 
@@ -8,10 +8,10 @@ function POS() {}
 
 
 /**
-* @description 统计每种商品的数量
-* @return [barcode:num...]
-* @type Array
-*/
+ * @description 统计每种商品的数量
+ * @return [barcode:num...]
+ * @type Array
+ */
 POS.prototype.countOrderItems = function(order) {
     var items = {};
     var barcode, num;
@@ -28,16 +28,14 @@ POS.prototype.countOrderItems = function(order) {
 }
 
 
-POS.prototype.printList=function(order,policy)
-{
-    var POLICY=PF.getPolicy(policy);
-    var policyData=data.getPolicy(policy);
-    var items=POLICY.checkItems(this.countOrderItems(order),policyData[0].barcodes);
-    var result=POLICY.calcAmount(items);
+POS.prototype.printList = function(order, policy) {
+    var POLICY = PF.getPolicy(policy);
+    var policyData = data.getPolicy(policy);
+    var items = POLICY.checkItems(this.countOrderItems(order), policyData[0].barcodes);
+    var result = POLICY.calcAmount(items);
     console.log(POLICY.report(result));
 }
 
 
 
 module.exports = POS;
-

@@ -1,4 +1,7 @@
-var order = [['ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000003-6', 'ITEM000005', 'ITEM000005', 'ITEM000005', 'ITEM000006-2'],['ITEM000001', 'ITEM000001', 'ITEM000003-2', 'ITEM000005', 'ITEM000005', 'ITEM000005', 'ITEM000006-5']];
+var order = [
+    ['ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000001', 'ITEM000003-6', 'ITEM000005', 'ITEM000005', 'ITEM000005', 'ITEM000006-2'],
+    ['ITEM000001', 'ITEM000001', 'ITEM000003-2', 'ITEM000005', 'ITEM000005', 'ITEM000005', 'ITEM000006-5']
+];
 var items = [{
     barcode: 'ITEM000001',
     name: '可口可乐',
@@ -45,7 +48,7 @@ var items = [{
 
 
 function getOrder(idx) {
-  var idx=idx||0;
+    var idx = idx || 0;
     return order[idx];
 }
 
@@ -53,10 +56,19 @@ function getItems() {
     return items;
 }
 
-function getPolicy(policy){
-  var policy=policy || 'BUY_THREE_GET_ONE_FREE';
-  var policies={'SINGLE_ITEM_BUY_HUNDRED_DISCOUNT_TEN':[{ type: 'SINGLE_ITEM_BUY_HUNDRED_DISCOUNT_TEN', barcodes: [ 'ITEM000006', 'ITEM000001' ] }],'BUY_THREE_GET_ONE_FREE':[{ type: 'BUY_THREE_GET_ONE_FREE', barcodes: [ 'ITEM000003', 'ITEM000001' ] }]};
-  return policies[policy];
+function getPolicy(policy) {
+    var policy = policy || 'BUY_THREE_GET_ONE_FREE';
+    var policies = {
+        'SINGLE_ITEM_BUY_HUNDRED_DISCOUNT_TEN': [{
+            type: 'SINGLE_ITEM_BUY_HUNDRED_DISCOUNT_TEN',
+            barcodes: ['ITEM000006', 'ITEM000001']
+        }],
+        'BUY_THREE_GET_ONE_FREE': [{
+            type: 'BUY_THREE_GET_ONE_FREE',
+            barcodes: ['ITEM000003', 'ITEM000001']
+        }]
+    };
+    return policies[policy];
 }
 
 module.exports.getOrder = getOrder;
