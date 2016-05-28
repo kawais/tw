@@ -14,7 +14,7 @@ describe('test', function() {
   it('POS countOrderItems', function() {
     var itemsCount = POS.countOrderItems(order);
     should(itemsCount).have.property('ITEM000001').be.eql(5);
-    should(itemsCount).have.property('ITEM000003').be.eql(2);
+    should(itemsCount).have.property('ITEM000003').be.eql(6);
     should(itemsCount).have.property('ITEM000006').be.eql(2);
     should(itemsCount).have.property('ITEM000005').be.eql(3);
   });
@@ -45,7 +45,7 @@ describe('test', function() {
     should(function(){amount.getItemAmount('NOT_FOUND');}).throw('Barcode not found.');
   });
 
-/*
+
   it('买三免一商品 name', function() {
     var policy=require('../policy/BUY_THREE_GET_ONE_FREE.js');
     var POLICY=new policy();
@@ -58,10 +58,23 @@ describe('test', function() {
     var policyData=data.getPolicy();
     var result=POLICY.checkItems(POS.countOrderItems(order),policyData[0].barcodes);
     should(result.length).be.eql(2);
-    should(result[0]).have.property('ITEM000003').be.eql(2);
     should(result[0]).have.property('ITEM000005').be.eql(3);
     should(result[0]).have.property('ITEM000006').be.eql(2);
     should(result[1]).have.property('ITEM000001').be.eql(5);
+    should(result[1]).have.property('ITEM000003').be.eql(6);
+  });
+
+  it('买三免一商品 calcAmount', function() {
+    var policy=require('../policy/BUY_THREE_GET_ONE_FREE.js');
+    var POLICY=new policy();
+    var policyData=data.getPolicy();
+    var items=POLICY.checkItems(POS.countOrderItems(order),policyData[0].barcodes);
+    var result=POLICY.calcAmount(items);
+    should(result.length).be.eql(2);
+    should(result[0]).have.property('ITEM000005').have.property('amount').be.eql(21);
+    should(result[0]).have.property('ITEM000006').have.property('amount').be.eql(196);
+    should(result[1]).have.property('ITEM000001').have.property('amount').be.eql(12);
+    should(result[1]).have.property('ITEM000003').have.property('amount').be.eql(4);
   });
 
 
@@ -71,11 +84,11 @@ describe('test', function() {
     var policyData=[{ type: 'SINGLE_ITEM_BUY_HUNDRED_DISCOUNT_TEN', barcodes: [ 'ITEM000006', 'ITEM000001' ] }];
     var result=POLICY.checkItems(POS.countOrderItems(order),policyData[0].barcodes);
     should(result.length).be.eql(2);
-    should(result[0]).have.property('ITEM000003').be.eql(2);
+    should(result[0]).have.property('ITEM000003').be.eql(6);
     should(result[0]).have.property('ITEM000005').be.eql(3);
     should(result[0]).have.property('ITEM000001').be.eql(5);
     should(result[1]).have.property('ITEM000006').be.eql(2);
-  }); */
+  });
 
 
 })

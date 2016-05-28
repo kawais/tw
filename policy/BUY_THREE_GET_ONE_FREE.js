@@ -1,5 +1,8 @@
 //买三免一商品
 
+var ITEM=require('../item.js');
+var amount=require('../amount.js');
+
 function POLICY() {
 }
 
@@ -29,7 +32,7 @@ POLICY.prototype.checkItems = function(itemsCount,barcodes) {
     found=0;
     for(var i in barcodes)
     {
-      if(item===barcodes[i])
+      if(item===barcodes[i] && itemsCount[item]>=3)
       {
         found=1;
         break;
@@ -39,6 +42,73 @@ POLICY.prototype.checkItems = function(itemsCount,barcodes) {
   }
   return result;
 }
+
+
+/**
+ * @description 计算商品价格
+ * @params Array[0]无优惠商品,Array[1]优惠商品
+ * @return Array[0]无优惠商品,Array[1]优惠商品
+ * @type Array
+ */
+POLICY.prototype.calcAmount=function(items)
+{
+  var result=[{},{}],item,free=0;
+  for(var i in items[0])
+  {
+    item=ITEM.getItem(i);
+    result[0][i]={'item':item,'num':items[0][i],'amount': amount.getItemAmount(i,items[0][i])};
+  }
+  for(var i in items[1])
+  {
+    item=ITEM.getItem(i);
+    free=Math.floor(items[1][i]/3);
+    result[1][i]={'item':item,'num':items[1][i],'amount': amount.getItemAmount(i,items[1][i]-free),'free':free,'save':amount.getItemAmount(i,free)};
+  }
+  return result;
+}
+
+
+
+/**
+ * @description 生成清单
+ * @params Array[0]无优惠商品,Array[1]优惠商品
+ * @return 清单
+ * @type String
+ */
+POLICY.prototype.report=function(items)
+{
+  var allStr=[' *<没钱赚商店>购物清单* '],total=0,save=0,item;
+  for(var i in items)
+  {
+   for(var j in items[i])
+   {
+      item=items[i][j];
+      total+=item['amount'];
+      allStr.push('名称：'+item['item']['name']+'，数量：'+item['num']+item['item']['unit']+'，单价：'+item['item']['price']+'(元)，小计：'+item['amount']+'(元) ');
+   }
+  }
+
+    allStr.push('-------------------------');
+
+
+
+  if(Object.getOwnPropertyNames(items[1]).length>0)
+  {
+    allStr.push(this.getPolicyName());
+
+    for(var i in items[1])
+    {
+      item=items[1][i];
+      save+=item['save'];
+      allStr.push('名称：'+item['item']['name']+'，数量：'+item['free']+item['item']['unit']);
+    }
+
+    allStr.push('-------------------------');
+  }
+  allStr.push('总计：'+total+'(元) '+(save?'节省：'+save+'(元)':''));
+  return allStr.join("\r\n");
+}
+
 
 
 module.exports = POLICY;
