@@ -101,7 +101,7 @@ POLICY.prototype.report = function(items) {
         for (var i in items[1]) {
             item = items[1][i];
             save += item['save'];
-            allStr.push('名称：' + item['item']['name'] + '，原价：' + item['amount'] + '(元)' + '，优惠：' + item['save'] + '(元)');
+            allStr.push('名称：' + item['item']['name'] + '，原价：' + (item['amount']+item['save']) + '(元)' + '，优惠：' + item['save'] + '(元)');
         }
 
         allStr.push('-------------------------');
